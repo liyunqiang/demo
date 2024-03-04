@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-sm-12">
+    <%= search_form_for @q do |f| %>
+      <%= f.label :name_cont %>
+      <%= f.search_field :name_cont %>
+
+      <%= f.label :card_no_eq %>
+      <%= f.search_field :card_no_eq %>
+
+      <%= f.label :birthday_eq %>
+      <%= f.search_field :birthday_eq %>
+
+      <%= f.submit "Search" %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <%= link_to "New Publisher", new_publisher_path %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <%= paginate @publishers %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Card Number</th>
+          <th>Birthday</th>
+          <th>Image Count</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @publishers.each_with_index do |publisher, i| %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= publisher.name %></td>
+            <td><%= publisher.card_no %></td>
+            <td><%= publisher.birthday %></td>
+            <td><%= publisher.attachments.size %></td>
+            <td>
+              <%= link_to "Detail", publisher_path(publisher) %>
+              &nbsp;
+              <%= link_to "Edit", edit_publisher_path(publisher) %>
+              &nbsp;
+              <%= link_to "Delete", publisher_path(publisher), data: {turbo: true, turbo_method: :delete, turbo_confirm: "Are you sure delete publisher?"} %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @publishers %>
+  </div>
+</div>

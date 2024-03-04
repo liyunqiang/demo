@@ -1,0 +1,18 @@
+<%= form_for @publisher, html: { multipart: true } do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :card_no %>
+  <%= f.text_field :card_no %>
+
+  <%= f.label :birthday %>
+  <%= f.text_field :birthday %>
+
+  <label>Attachments:</label>
+  <%= f.fields_for :attachments do |attachment| %>
+    <%= image_tag attachment.object.image&.url if attachment.object.image&.url %>
+    <%= attachment.file_field :image %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
